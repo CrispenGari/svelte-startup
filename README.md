@@ -58,6 +58,28 @@ console.log("Hello world")
 
 ```
 
+### Layout
+
+In svelte we can create a file called `__layout.svelte` in the routes folder. This is where our common layout components will stay. This is also a good place to import our `global.css` file. The `__layout.svelte` file may look as follows in svelte.
+
+```svelte
+<script>
+  import "../styles/global.css";
+  import Footer from "../components/Footer.svelte";
+  import Nav from "../components/Nav.svelte";
+</script>
+
+<svelte:head>
+  <title>My app</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+</svelte:head>
+<Nav />
+<slot />
+<Footer />
+```
+
+So the rest of the code from the pages will leave in the `<slot/>`.
+
 ### Refs
 
 1. [svelte.dev](https://svelte.dev/)
