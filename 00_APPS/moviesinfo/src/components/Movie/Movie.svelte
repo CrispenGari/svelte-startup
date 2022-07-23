@@ -5,10 +5,13 @@
 </script>
 
 <div class="movie">
-  <img
-    src={`${imageURL}${movie.backdrop_path || movie.poster_path}`}
-    alt={movie.id.toString()}
-  />
+  <a href={`/movie/${movie.id}`}>
+    <img
+      loading="lazy"
+      src={`${imageURL}${movie.backdrop_path || movie.poster_path}`}
+      alt={movie.id.toString()}
+    /></a
+  >
   <h1>{movie.title}</h1>
   <p>
     <span> Released Date:</span>
@@ -25,21 +28,18 @@
     cursor: pointer;
     margin: 5px;
     border-radius: 5px;
-    box-shadow: 1px 1px 0px 0px #222;
     width: 300px;
     transition: all 1s;
+    border: 1px solid lightgray;
   }
   img {
     width: 100%;
     border-radius: 5px;
   }
   p {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     padding: 5px;
     color: gray;
-  }
-  p > span:first-child {
-    font-weight: bold;
   }
   h1 {
     font-size: 1rem;
@@ -47,6 +47,8 @@
     text-overflow: ellipsis;
     width: 100%;
     overflow: hidden;
+    font-weight: 500;
+    text-transform: uppercase;
   }
   .movie:hover {
     transform: scale(1.09);

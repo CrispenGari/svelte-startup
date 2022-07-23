@@ -1,7 +1,6 @@
 <script lang="ts">
   import Movie from "../components/Movie/Movie.svelte";
   import type { MovieType } from "src/types";
-
   import { onMount } from "svelte";
   let searchTerm: string = "";
 
@@ -11,7 +10,9 @@
   onMount(async () => {
     loading = true;
     const res = await fetch(
-      "https://api.themoviedb.org/3/movie/popular?api_key=5ac0ad7d8ec61646a043f5cda245e111&language=en-US&page=1"
+      `https://api.themoviedb.org/3/movie/popular?api_key=${
+        import.meta.env.VITE_API_KEY
+      }&language=en-US&page=1`
     );
     const data = await res.json();
     loading = false;
@@ -23,8 +24,7 @@
 <div class="home">
   <div class="home__top">
     <form action="">
-      <label for="search-input" />
-      <input bind:value={searchTerm} type="text" />
+      <input bind:value={searchTerm} type="text" placeholder="Search Movie" />
       <button type="submit"> SEARCH </button>
     </form>
   </div>
@@ -36,7 +36,7 @@
   </div>
 </div>
 
-<style>
+<style lang="css">
   .home {
     display: flex;
     width: 100%;
@@ -45,6 +45,44 @@
     margin: 0px auto;
     flex-direction: column;
     height: 90% !important;
+  }
+  .home__top {
+    width: 100%;
+  }
+  form {
+    transition: all 1s;
+    border: 1px solid lightgray;
+    width: 100%;
+    max-width: 400px;
+    padding: 3px 5px;
+    border-radius: 5px;
+    display: flex;
+  }
+  form > input {
+    transition: all 1s;
+    flex: 1;
+    margin-right: 5px;
+    border: none;
+    outline: none;
+    background-color: #f5f5f5;
+    padding: 3px 5px;
+    border-radius: 5px;
+  }
+  form:focus-within {
+    border-color: #022540;
+    background-color: #022540;
+  }
+  form > input:focus-within {
+    background-color: #022540;
+    color: white;
+  }
+  form > button {
+    transform: all 1s;
+    display: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
   }
   .home__main {
     display: flex;
@@ -61,5 +99,10 @@
   }
   .home__main::-webkit-scrollbar {
     display: none;
+  }
+  @media only screen and (max-width: 600px) {
+    form {
+      margin: 0px auto;
+    }
   }
 </style>
